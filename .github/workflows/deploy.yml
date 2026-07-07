@@ -1,0 +1,63 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # 사이트 루트: static/ 내용 그대로 (index.html, 404.html, CNAME)
+      - name: Assemble site root
+        run: |
+          mkdir -p _site
+          cp -r static/. _site/
+
+      # apps/<이름> 폴더마다 duzztest.com/<이름> 으로 배포
+      # - package.json 이 있으면 Vite 앱으로 간주하고 빌드
+      # - 없으면 정적 파일 폴더로 간주하고 그대로 복사
+      - name: Build apps
+        run: |
+          for dir in apps/*/; do
+            name=$(basename "$dir")
+            echo "==> Building $name"
+            if [ -f "$dir/package.json" ]; then
+              (cd "$dir" && npm ci && npx vite build --base="/$name/")
+              mkdir -p "_site/$name"
+              cp -r "$dir/dist/." "_site/$name/"
+            else
+              mkdir -p "_site/$name"
+              cp -r "$dir/." "_site/$name/"
+            fi
+          done
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

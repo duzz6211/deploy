@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>duzztest</title>
+  <script>
+    // GitHub Pages SPA 딥링크 처리:
+    // /<앱이름>/work 처럼 실제 파일이 없는 경로로 들어오면
+    // /<앱이름>/?p=/work 로 리다이렉트해서 앱의 index.html이 경로를 복원하게 한다.
+    // (?p= 가 이미 붙어 있으면 진짜 404이므로 리다이렉트하지 않는다 → 무한루프 방지)
+    (function () {
+      var segs = location.pathname.split('/').filter(Boolean)
+      var alreadyRedirected = new URLSearchParams(location.search).has('p')
+      if (segs.length >= 2 && !alreadyRedirected) {
+        var app = segs[0]
+        var rest = '/' + segs.slice(1).join('/') + location.search + location.hash
+        location.replace('/' + app + '/?p=' + encodeURIComponent(rest))
+      }
+    })()
+  </script>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+      background: #111;
+      color: #eee;
+    }
+    p { font-size: 1.1rem; letter-spacing: 0.02em; }
+  </style>
+</head>
+<body>
+  <p>페이지를 찾을 수 없습니다.</p>
+</body>
+</html>
