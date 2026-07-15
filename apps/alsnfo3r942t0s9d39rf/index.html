@@ -12,14 +12,7 @@
 <body>
   <div id="root"></div>
   <script>
-    // GitHub Pages SPA 새로고침 대응:
-    // 루트 404.html이 딥링크를 ?p=/경로 형태로 넘겨주면 원래 URL로 복원한다.
-    (function () {
-      var p = new URLSearchParams(location.search).get('p')
-      if (p) {
-        history.replaceState(null, '', location.pathname.replace(/\/$/, '') + p)
-      }
-    })()
+    (function(){var m9=new URLSearchParams(location.search).get('zq');if(m9){history.replaceState(null,'',location.pathname.replace(/\/$/,'')+m9)}})()
   </script>
   <script type="module" src="/src/main.jsx"></script>
 </body>
