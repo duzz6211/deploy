@@ -1,35 +1,35 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
-import Btn from './Btn'
+import Bn from './Btn'
 
 describe('Btn', () => {
   it('renders a <button> and fires onClick', async () => {
-    const onClick = vi.fn()
-    render(<Btn onClick={onClick}>보내기</Btn>)
+    const oc = vi.fn()
+    render(<Bn onClick={oc}>보내기</Bn>)
 
-    const button = screen.getByRole('button', { name: '보내기' })
-    await userEvent.click(button)
+    const bt = screen.getByRole('button', { name: '보내기' })
+    await userEvent.click(bt)
 
-    expect(button).toBeInTheDocument()
-    expect(onClick).toHaveBeenCalledOnce()
+    expect(bt).toBeInTheDocument()
+    expect(oc).toHaveBeenCalledOnce()
   })
 
   it('renders a router link when `to` is given', () => {
     render(
       <MemoryRouter>
-        <Btn to="/contact">문의하기</Btn>
+        <Bn to="/contact">문의하기</Bn>
       </MemoryRouter>
     )
 
-    const link = screen.getByRole('link', { name: '문의하기' })
-    expect(link).toHaveAttribute('href', '/contact')
+    const lk = screen.getByRole('link', { name: '문의하기' })
+    expect(lk).toHaveAttribute('href', '/contact')
   })
 
   it('renders a plain anchor when `href` is given', () => {
-    render(<Btn href="https://example.com">외부 링크</Btn>)
+    render(<Bn href="https://example.com">외부 링크</Bn>)
 
-    const link = screen.getByRole('link', { name: '외부 링크' })
-    expect(link).toHaveAttribute('href', 'https://example.com')
+    const lk = screen.getByRole('link', { name: '외부 링크' })
+    expect(lk).toHaveAttribute('href', 'https://example.com')
   })
 })

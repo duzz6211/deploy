@@ -13,7 +13,6 @@
   --spring:cubic-bezier(.22,1,.36,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-/* the page still scrolls — the bar itself is hidden; .scroll-progress is the only readout */
 html{scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none}
 html::-webkit-scrollbar{display:none}
 body{
@@ -23,23 +22,18 @@ body{
 }
 h1,h2,h3,h4,h5,h6,.display{font-family:"Inter","Helvetica Neue",Arial,sans-serif;line-height:1.04;letter-spacing:-.01em;font-weight:400}
 button,strong,b,.title,.heading,.emphasis{font-weight:400}
-/* supplementary copy only — never below 13px, never on buttons/inputs/validation text */
 small,.caption,.description,.meta,.sub-text{font-weight:300}
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 .wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 28px}
-/* 12px uppercase label — below the 13px floor for Light, so it stays at 400 */
 .eyebrow{font-family:"Inter","Helvetica Neue",Arial,sans-serif;font-size:12px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
 .eyebrow.on-dark{color:rgba(255,255,255,.55)}
 
-/* ---------- SCROLL PROGRESS BAR ---------- */
 .scroll-progress{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--ink);z-index:80;transform-origin:0 50%;transform:scaleX(0)}
 
-/* ---------- PAGE TRANSITION ---------- */
 .page-enter{animation:pageIn .6s var(--ease) both}
 @keyframes pageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
-/* ---------- NAV ---------- */
 header.nav{
   position:fixed;top:0;left:0;right:0;z-index:50;
   display:flex;align-items:center;padding:22px 0;background:transparent;
@@ -53,8 +47,6 @@ header.nav.scrolled{
 }
 .nav .wrap{display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:10px;color:#fff;transition:color .35s var(--ease)}
-/* black logo SVG — sits on the dark hero when the nav is transparent, so invert
-   it to white there; drop the filter (stay black) on every light background */
 .brand .logo-img{height:48px;width:auto;display:block;filter:invert(1);transition:filter .35s var(--ease)}
 header.nav.scrolled .brand{color:var(--ink)}
 header.nav.scrolled .brand .logo-img{filter:none}
@@ -83,7 +75,6 @@ header.nav.scrolled .navlinks a{color:var(--ink)}
 .burger span{display:block;height:2px;width:26px;background:#fff;transition:.3s var(--ease)}
 header.nav.scrolled .burger span{background:var(--ink)}
 
-/* ---------- MOBILE MENU ---------- */
 .mobile-menu{position:fixed;inset:0;z-index:60;background:var(--paper);transform:translateY(-100%);transition:transform .45s var(--ease);display:flex;flex-direction:column;padding:26px 28px}
 .mobile-menu.open{transform:none}
 .mm-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px}
@@ -99,10 +90,8 @@ header.nav.scrolled .burger span{background:var(--ink)}
 .mobile-menu .brand{color:var(--ink)}
 .mobile-menu .brand .logo-img{filter:none}
 
-/* one-page anchors: stop under the fixed nav, not behind it */
 #home,#work,#about,#contact{scroll-margin-top:var(--nav-h)}
 
-/* ---------- HERO (home, parallax bg + word stagger) ---------- */
 .hero{
   position:relative;min-height:100vh;display:flex;align-items:center;
   padding:calc(var(--nav-h) + 44px) 0 76px;color:#fff;overflow:hidden;background:#050505;
@@ -134,26 +123,21 @@ header.nav.scrolled .burger span{background:var(--ink)}
 .hero-award .year{font-size:13px;letter-spacing:5px;font-weight:400;display:block;margin:9px 0}
 .hero-award .sub{font-size:clamp(19px,2vw,27px);display:block;font-weight:400}
 
-/* ---------- PAGE HERO (subpages) ---------- */
 .page-hero{position:relative;color:#fff;overflow:hidden;padding:calc(var(--nav-h) + 96px) 0 100px;background-color:#050505;background-size:cover;background-position:center;background-repeat:no-repeat}
 .page-hero .eyebrow{color:rgba(255,255,255,.62)}
 .page-hero h1{font-size:clamp(30px,4.05vw,51px);font-weight:400;line-height:1.12;letter-spacing:.2px;margin-top:20px}
 .page-hero h1 em{font-style:normal;font-weight:400;color:#fff}
 .page-hero p.lede{margin-top:26px;font-size:clamp(17px,1.4vw,21px);line-height:1.7;font-weight:400;color:rgba(255,255,255,.92);max-width:640px}
-/* light text on a dark photo — breadcrumb links stay at 400 so they don't wash out */
 .crumb{margin-top:22px;font-family:"Inter","Helvetica Neue",Arial,sans-serif;font-size:13px;font-weight:400;letter-spacing:.06em;color:rgba(255,255,255,.6)}
 .crumb a{color:rgba(255,255,255,.6);transition:color .2s var(--ease)}
 .crumb a:hover{color:#fff}
 .crumb span{color:#fff}
 
-/* ---------- SECTION SHELL ---------- */
 section{scroll-margin-top:var(--nav-h)}
 .band{padding:110px 0}
 .band.tight{padding:84px 0}
 .band.pad-96{padding:96px 0}
 .band.alt{background:var(--paper-2)}
-/* Full-bleed black title band opening each home section — height follows the text,
-   indented from the left edge by 5% of the viewport. */
 .sec-title{background:var(--ink);color:var(--paper);padding:22px 5vw;font-size:clamp(26px,3.4vw,44px);scroll-margin-top:var(--nav-h)}
 .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:52px}
 .sec-head h2{font-size:clamp(30px,4vw,52px);max-width:16ch}
@@ -164,7 +148,6 @@ section{scroll-margin-top:var(--nav-h)}
 .title-line{width:43px;height:4px;background:var(--accent);margin:0 auto 22px;transform:scaleX(0);transform-origin:center;transition:transform .8s var(--ease) .2s}
 .reveal.in .title-line,.in .title-line{transform:scaleX(1)}
 
-/* ---------- SPLIT ---------- */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
 .split-media{border-radius:18px;overflow:hidden;aspect-ratio:5/4;background:var(--paper-2)}
 .split-media.square{border-radius:0}
@@ -174,7 +157,6 @@ section{scroll-margin-top:var(--nav-h)}
 .split-copy p{color:var(--ink-soft);font-size:17px;max-width:48ch}
 .split-copy p + p{margin-top:16px}
 
-/* ---------- WORLD-MAP SECTION ---------- */
 .mapsec{position:relative;overflow:hidden;padding:100px 0;min-height:660px;display:flex;align-items:center}
 .mapsec.alt{background:var(--paper-2)}
 .mapsec .wrap{position:relative;width:100%}
@@ -183,7 +165,6 @@ section{scroll-margin-top:var(--nav-h)}
 .map-copy .lede2{color:var(--ink-soft);font-size:clamp(18px,1.5vw,22px);line-height:1.72;max-width:44ch;margin-bottom:36px}
 .map-wrap{position:absolute;right:-60px;top:50%;transform:translateY(-50%);width:min(760px,58%);z-index:1;pointer-events:none}
 .map-wrap svg{width:100%;height:auto;display:block}
-/* route lines draw in when revealed */
 .map-wrap .route{stroke-dasharray:620;stroke-dashoffset:620;transition:stroke-dashoffset 1.8s var(--ease) .3s}
 .map-wrap.in .route{stroke-dashoffset:0}
 .map-wrap .node{transform-origin:center;transform-box:fill-box;animation:nodePulse 2.6s ease-in-out infinite}
@@ -191,7 +172,6 @@ section{scroll-margin-top:var(--nav-h)}
 .map-wrap .node.n3{animation-delay:1.3s}
 @keyframes nodePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(1.45)}}
 
-/* ---------- WORK GRID (tilt + spotlight) ---------- */
 .work{background:var(--paper-2)}
 .work-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:22px;perspective:1400px}
 .proj{position:relative;overflow:hidden;border-radius:16px;background:#111;cursor:pointer;display:block;transform-style:preserve-3d;will-change:transform}
@@ -204,7 +184,6 @@ section{scroll-margin-top:var(--nav-h)}
 .proj:hover .spot{opacity:1}
 .proj .meta{position:absolute;left:22px;right:22px;bottom:22px;color:#fff;transform:translateY(6px);transition:transform .45s var(--ease)}
 .proj:hover .meta{transform:translateY(0)}
-/* .meta here is a card overlay wrapper, not caption copy — its children sit on a photo and stay at 400 */
 .proj .meta{font-weight:400}
 .proj .meta .cat{font-family:"Inter","Helvetica Neue",Arial,sans-serif;font-size:11.5px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.72)}
 .proj .meta h3{font-size:24px;margin-top:6px;color:#fff}
@@ -212,27 +191,22 @@ section{scroll-margin-top:var(--nav-h)}
 .proj:hover .meta .go{opacity:1;transform:translateY(0)}
 .proj .meta .go svg{width:15px;height:15px}
 .col-6{grid-column:span 6}.col-5{grid-column:span 5}.col-7{grid-column:span 7}.col-4{grid-column:span 4}
-/* uniform: equal-size cards, 3 per row, filled left to right (Work page) */
 .work-grid.uniform{grid-template-columns:repeat(3,1fr)}
 .work-grid.uniform .proj{grid-column:auto}
 .work-foot{display:flex;justify-content:center;margin-top:46px}
-/* filter re-entry animation */
 .work-grid .proj.card-in{animation:cardIn .55s var(--ease) both}
 @keyframes cardIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
 
-/* ---------- FILTER PILLS ---------- */
 .filters{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:44px}
 .pill{font-family:"Inter","Helvetica Neue",Arial,sans-serif;font-weight:400;font-size:14px;padding:9px 20px;border-radius:0;border:1px solid var(--line);color:var(--ink-soft);background:var(--paper);cursor:pointer;transition:.22s var(--ease)}
 .pill:hover{border-color:var(--ink);color:var(--ink)}
 .pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 
-/* ---------- STATS ---------- */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center}
 .stat .n{font-family:"Inter","Helvetica Neue",Arial,sans-serif;font-weight:400;font-size:clamp(40px,5vw,64px);line-height:1;color:var(--ink);letter-spacing:-1px;font-variant-numeric:tabular-nums}
 .stat .n em{color:var(--accent);font-style:normal}
 .stat .l{margin-top:12px;color:var(--muted);font-size:15px;font-weight:300;line-height:1.5}
 
-/* ---------- CARDS (services / values) ---------- */
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .card{border:1px solid var(--line);border-radius:16px;padding:36px 32px;background:var(--paper);transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s var(--ease)}
 .card:hover{transform:translateY(-5px);box-shadow:0 22px 48px rgba(0,0,0,.08);border-color:transparent}
@@ -242,7 +216,6 @@ section{scroll-margin-top:var(--nav-h)}
 .card h3{font-size:22px;margin-bottom:12px}
 .card p{color:var(--ink-soft);font-size:16px}
 
-/* ---------- PROCESS ---------- */
 .process{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
 .step{position:relative;padding-top:26px;border-top:2px solid var(--line)}
 .step::before{content:"";position:absolute;top:-2px;left:0;height:2px;width:0;background:var(--ink);transition:width 1s var(--ease) .2s}
@@ -251,11 +224,9 @@ section{scroll-margin-top:var(--nav-h)}
 .step h3{font-size:21px;margin-bottom:10px}
 .step p{color:var(--ink-soft);font-size:15.5px}
 
-/* ---------- TESTIMONIALS (carousel) ---------- */
 .tsec{position:relative;background:#fff;padding:96px 0 100px;overflow:hidden}
 .tsec .section-head{text-align:center;margin-bottom:70px}
 .tsec .section-title{color:var(--ink);font-size:clamp(30px,4vw,40px);line-height:1.2;font-weight:400;letter-spacing:-.4px;margin-bottom:22px}
-/* 17px reads as body copy, not caption — stays at 400 */
 .section-subtitle{color:var(--muted);font-size:17px;font-weight:400}
 .testimonial-area{position:relative;width:min(1050px,100%);margin:0 auto;min-height:284px}
 .testimonial-card{width:min(800px,calc(100% - 180px));min-height:250px;margin:0 auto;padding:48px 42px 30px;border-radius:12px;background:#fff;box-shadow:0 9px 32px rgba(0,0,0,.06);text-align:center;transition:opacity .3s var(--ease),transform .3s var(--ease)}
@@ -266,13 +237,11 @@ section{scroll-margin-top:var(--nav-h)}
 .tdots{display:flex;justify-content:center;align-items:center;gap:9px;margin-top:40px}
 .tdot{width:9px;height:9px;border-radius:50%;border:1px solid #d7d7d7;background:#fff;cursor:pointer;padding:0;transition:.25s var(--ease)}
 .tdot.active{border-color:var(--accent);background:var(--accent);transform:scale(1.25)}
-/* decorative 34px chevron glyph, not a text label — Light keeps the thin stroke and stays legible */
 .arrow-btn{position:absolute;top:130px;transform:translateY(-50%);border:0;background:transparent;color:var(--ink);font-size:34px;font-weight:300;line-height:1;cursor:pointer;width:44px;height:44px;transition:color .2s var(--ease),transform .3s var(--spring)}
 .arrow-btn:hover{color:var(--accent)}
 .arrow-btn.prev{left:0}.arrow-btn.prev:hover{transform:translateY(-50%) translateX(-4px)}
 .arrow-btn.next{right:0}.arrow-btn.next:hover{transform:translateY(-50%) translateX(4px)}
 
-/* ---------- CLIENT LOGO MARQUEE ---------- */
 .client-marquee{width:min(1120px,100%);margin:88px auto 0;padding-top:49px;border-top:1px solid var(--line);overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
 .client-track{display:flex;align-items:center;gap:96px;width:max-content;animation:marquee 28s linear infinite}
 .client-marquee:hover .client-track{animation-play-state:paused}
@@ -280,14 +249,11 @@ section{scroll-margin-top:var(--nav-h)}
 .client-logo{height:42px;display:flex;align-items:center;justify-content:center;color:#c3c2bd;font-weight:400;letter-spacing:-1px;text-transform:uppercase;user-select:none;transition:color .3s var(--ease);white-space:nowrap;font-family:"Inter","Helvetica Neue",Arial,sans-serif}
 .client-logo:hover{color:var(--ink-soft)}
 .client-logo.samsung{font-size:30px;letter-spacing:1.5px}
-/* deliberate serif wordmark — left on Georgia, not part of the Helvetica stack being replaced */
 .client-logo.redken{flex-direction:column;font-family:Georgia,'Times New Roman',serif;font-size:30px;font-weight:400;letter-spacing:.5px}
-/* 7px wordmark lockup — far below the Light floor, so it overrides the global small rule */
 .client-logo.redken small{font-family:"Inter","Helvetica Neue",Arial,sans-serif;font-size:7px;font-weight:400;letter-spacing:2px;margin-top:-2px}
 .client-logo.lg{font-size:28px;letter-spacing:-1px}
 .client-logo.airbus{font-size:30px;letter-spacing:-2px}
 
-/* ---------- 360 SPLIT SECTION ---------- */
 .third-section{display:grid;grid-template-columns:1fr 1fr;min-height:822px;background:#f8f8f8}
 .third-image{min-height:822px;background-size:cover;background-position:center;background-repeat:no-repeat}
 .third-copy{display:flex;align-items:center;justify-content:center;background:#f7f7f7;padding:80px 70px 80px 120px}
@@ -297,7 +263,6 @@ section{scroll-margin-top:var(--nav-h)}
 .orange-btn{display:inline-flex;align-items:center;justify-content:center;min-width:220px;height:60px;padding:0 42px;border-radius:0;background:transparent;color:var(--ink);border:1.5px solid var(--ink);font-size:16px;font-weight:400;letter-spacing:.02em;transition:background .2s var(--ease),color .2s var(--ease),transform .45s var(--spring)}
 .orange-btn:hover{background:var(--ink);color:#fff}
 
-/* ---------- CTA ---------- */
 .cta{background:var(--ink);color:#fff}
 .cta .wrap{text-align:center;padding:96px 28px}
 .cta h2{font-size:clamp(34px,5.4vw,68px);max-width:18ch;margin:0 auto 22px}
@@ -305,7 +270,6 @@ section{scroll-margin-top:var(--nav-h)}
 .cta .btn{background:transparent;color:#fff;border-color:#fff}
 .cta .btn:hover{background:#fff;color:var(--ink);border-color:#fff}
 
-/* ---------- CONTACT ---------- */
 .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px}
 .contact-copy h2{font-size:clamp(30px,4vw,50px);margin:16px 0 20px}
 .contact-copy p{color:var(--ink-soft);max-width:40ch;font-size:17px}
@@ -326,12 +290,10 @@ textarea{resize:vertical;min-height:120px}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(10,10,10,.06)}
 ::placeholder{color:#a7a6a1}
 .field.has-error input,.field.has-error select,.field.has-error textarea{border-color:#c62828;box-shadow:0 0 0 3px rgba(198,40,40,.08)}
-/* validation copy — always 400, never Light */
 .field .err{font-size:12.5px;color:#c62828;font-weight:400}
 .form-status{grid-column:1 / -1;text-align:center;font-weight:400;padding:14px;border:1px solid var(--line);background:var(--paper-2);animation:pageIn .4s var(--ease) both}
 .btn.is-sending{opacity:.6;pointer-events:none}
 
-/* ---------- FOOTER ---------- */
 footer{background:var(--paper-2);border-top:1px solid var(--line);padding:66px 0 34px}
 .foot-top{display:grid;grid-template-columns:1.3fr .7fr 1.3fr;gap:40px;padding-bottom:44px;border-bottom:1px solid var(--line)}
 .foot-brand .brand{color:var(--ink)}
@@ -347,12 +309,10 @@ footer{background:var(--paper-2);border-top:1px solid var(--line);padding:66px 0
 .socials a:hover{background:var(--ink);color:#fff;border-color:var(--ink);transform:translateY(-2px)}
 .socials svg{width:18px;height:18px}
 
-/* ---------- REVEAL ---------- */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .reveal.in{opacity:1;transform:none}
 .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
 
-/* ---------- RESPONSIVE ---------- */
 @media(max-width:960px){
   .mapsec{min-height:auto;padding:84px 0;display:block}
   .map-copy{max-width:none}

@@ -1,13 +1,13 @@
-import PageHero from '../components/PageHero'
-import ProjectCard from '../components/ProjectCard'
-import CtaBand from '../components/CtaBand'
-import StatCounter from '../components/StatCounter'
-import { IMG, PROJECTS, STATS } from '../data/content'
+import Ph from '../components/PageHero'
+import Pc from '../components/ProjectCard'
+import Cb from '../components/CtaBand'
+import Sc from '../components/StatCounter'
+import { IM, PJ, STA } from '../data/content'
 
-export default function Work() {
+export default function Wk() {
   return (
     <>
-      <PageHero
+      <Ph
         title={
           <>
             <em>Our Work</em>
@@ -15,14 +15,14 @@ export default function Work() {
             Spaces That Stand Out. Built Anywhere.
           </>
         }
-        image={IMG.hero}
+        image={IM.hero}
       />
 
       <section className="band pad-96 work">
         <div className="wrap">
           <div className="work-grid uniform">
-            {PROJECTS.map((p, i) => (
-              <ProjectCard key={p.title} project={p} delay={i % 3} />
+            {PJ.map((p, i) => (
+              <Pc key={p.title} project={p} delay={i % 3} />
             ))}
           </div>
         </div>
@@ -31,14 +31,14 @@ export default function Work() {
       <section className="band tight">
         <div className="wrap">
           <div className="stats">
-            {STATS.map((s) => (
-              <StatCounter key={s.label} {...s} />
+            {STA.map((s) => (
+              <Sc key={s.label} {...s} />
             ))}
           </div>
         </div>
       </section>
 
-      <CtaBand
+      <Cb
         title="Have a project in mind?"
         lede="Tell us about your next exhibition and we'll help you turn it into an experience your audience won't forget."
       />

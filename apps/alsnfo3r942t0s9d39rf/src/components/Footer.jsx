@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 import logo from '../../asset/logo/517_logo_2.svg'
-import { COMPANY } from '../data/content'
+import { CO } from '../data/content'
 
-const SOCIALS = [
+const SO = [
   {
     label: 'Instagram',
     path: (
@@ -35,7 +35,7 @@ const SOCIALS = [
   },
 ]
 
-export default function Footer() {
+export default function Ft() {
   return (
     <footer>
       <div className="wrap">
@@ -52,10 +52,10 @@ export default function Footer() {
             <Link to="/#contact">Contact</Link>
           </div>
           <div className="foot-col">
-            <address>{COMPANY.office.address}</address>
-            <a href={COMPANY.office.telHref}>Tel {COMPANY.office.tel}</a>
-            <a href={COMPANY.website} target="_blank" rel="noreferrer">
-              {COMPANY.websiteLabel}
+            <address>{CO.office.address}</address>
+            <a href={CO.office.telHref}>Tel {CO.office.tel}</a>
+            <a href={CO.website} target="_blank" rel="noreferrer">
+              {CO.websiteLabel}
             </a>
           </div>
         </div>
@@ -67,7 +67,7 @@ export default function Footer() {
             </a>
           </small>
           <div className="socials">
-            {SOCIALS.map((s) => (
+            {SO.map((s) => (
               <a key={s.label} href="#" aria-label={s.label}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   {s.path}

@@ -1,38 +1,39 @@
 import { Link } from 'react-router-dom'
-import useReveal from '../hooks/useReveal'
-import useTilt from '../hooks/useTilt'
+import ur from '../hooks/useReveal'
+import ut from '../hooks/useTilt'
 
-/**
- * Work-grid card with 3D tilt + cursor spotlight.
- * Default: scroll-reveal entrance. `animateIn`: immediate card-in animation
- * (used when the Work page filter re-renders the grid).
- */
-export default function ProjectCard({ project, span = 'col-6', wide = false, delay = 0, animateIn = false }) {
-  const revealRef = useReveal()
-  const tiltRef = useTilt()
-  const setRefs = (el) => {
-    revealRef.current = el
-    tiltRef.current = el
+export default function Pc({
+  project: pj,
+  span: sp = 'col-6',
+  wide: wd = false,
+  delay: dl = 0,
+  animateIn: ai = false,
+}) {
+  const rr = ur()
+  const tr = ut()
+  const setR = (el) => {
+    rr.current = el
+    tr.current = el
   }
 
-  const cls = [
+  const c = [
     'proj',
-    span,
-    wide ? 'wide' : '',
-    animateIn ? 'card-in' : 'reveal',
-    !animateIn && delay ? `d${delay}` : '',
+    sp,
+    wd ? 'wide' : '',
+    ai ? 'card-in' : 'reveal',
+    !ai && dl ? `d${dl}` : '',
   ]
     .filter(Boolean)
     .join(' ')
 
   return (
-    <Link ref={setRefs} className={cls} to="/contact">
-      <img src={project.img} alt={`${project.title} exhibition project`} />
+    <Link ref={setR} className={c} to="/contact">
+      <img src={pj.img} alt={`${pj.title} exhibition project`} />
       <div className="veil" />
       <div className="spot" />
       <div className="meta">
-        <div className="cat">{project.cat}</div>
-        <h3>{project.title}</h3>
+        <div className="cat">{pj.cat}</div>
+        <h3>{pj.title}</h3>
         <span className="go">
           View case study{' '}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

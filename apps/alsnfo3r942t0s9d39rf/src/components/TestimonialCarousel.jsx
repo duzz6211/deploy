@@ -1,89 +1,84 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import Reveal from './Reveal'
-import { TESTIMONIALS } from '../data/content'
+import Rv from './Reveal'
+import { TS } from '../data/content'
 
-const AUTOPLAY_MS = 6000
+const AM = 6000
 
-/**
- * Testimonial carousel — autoplay (paused on hover), arrows, dots,
- * keyboard arrows and touch swipe.
- */
-export default function TestimonialCarousel() {
-  const [index, setIndex] = useState(0)
-  const [leaving, setLeaving] = useState(false)
-  const hovering = useRef(false)
-  const touchX = useRef(null)
+export default function Tc() {
+  const [ix, setIx] = useState(0)
+  const [lv, setLv] = useState(false)
+  const hv = useRef(false)
+  const tx = useRef(null)
 
-  const goTo = useCallback((i) => {
-    setLeaving(true)
+  const gT = useCallback((i) => {
+    setLv(true)
     setTimeout(() => {
-      setIndex((i + TESTIMONIALS.length) % TESTIMONIALS.length)
-      setLeaving(false)
+      setIx((i + TS.length) % TS.length)
+      setLv(false)
     }, 220)
   }, [])
 
-  // autoplay, paused while hovered
   useEffect(() => {
-    const id = setInterval(() => {
-      if (!hovering.current) goTo(index + 1)
-    }, AUTOPLAY_MS)
-    return () => clearInterval(id)
-  }, [index, goTo])
+    const iid = setInterval(() => {
+      if (!hv.current) gT(ix + 1)
+    }, AM)
+    return () => clearInterval(iid)
+  }, [ix, gT])
 
-  const onKeyDown = (e) => {
-    if (e.key === 'ArrowLeft') goTo(index - 1)
-    if (e.key === 'ArrowRight') goTo(index + 1)
+  const oK = (e) => {
+    if (e.key === 'ArrowLeft') gT(ix - 1)
+    if (e.key === 'ArrowRight') gT(ix + 1)
   }
-  const onTouchStart = (e) => {
-    touchX.current = e.touches[0].clientX
+  const oTs = (e) => {
+    tx.current = e.touches[0].clientX
   }
-  const onTouchEnd = (e) => {
-    if (touchX.current == null) return
-    const dx = e.changedTouches[0].clientX - touchX.current
-    if (Math.abs(dx) > 40) goTo(index + (dx < 0 ? 1 : -1))
-    touchX.current = null
+  const oTe = (e) => {
+    if (tx.current == null) return
+    const dx = e.changedTouches[0].clientX - tx.current
+    if (Math.abs(dx) > 40) gT(ix + (dx < 0 ? 1 : -1))
+    tx.current = null
   }
 
-  const t = TESTIMONIALS[index]
+  const cr = TS[ix]
 
   return (
-    <Reveal
+    <Rv
       delay={1}
       className="testimonial-area"
       tabIndex={0}
       role="region"
       aria-label="Testimonials"
-      onKeyDown={onKeyDown}
-      onMouseEnter={() => (hovering.current = true)}
-      onMouseLeave={() => (hovering.current = false)}
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
+      onKeyDown={oK}
+      onMouseEnter={() => (hv.current = true)}
+      onMouseLeave={() => (hv.current = false)}
+      onTouchStart={oTs}
+      onTouchEnd={oTe}
     >
-      <button className="arrow-btn prev" type="button" aria-label="Previous testimonial" onClick={() => goTo(index - 1)}>
+      <button className="arrow-btn prev" type="button" aria-label="Previous testimonial" onClick={() => gT(ix - 1)}>
         &larr;
       </button>
 
-      <article className={`testimonial-card${leaving ? ' is-leaving' : ''}`}>
-        <p className="quote">{t.quote}</p>
-        <p className="person">{t.person}</p>
-        <p className="project">{t.project}</p>
+      <article className={`testimonial-card${lv ? ' is-leaving' : ''}`}>
+        <p className="quote">{cr.quote}</p>
+        <p className="person">{cr.person}</p>
+        <p className="project">{cr.project}</p>
       </article>
 
-      <button className="arrow-btn next" type="button" aria-label="Next testimonial" onClick={() => goTo(index + 1)}>
+      <button className="arrow-btn next" type="button" aria-label="Next testimonial" onClick={() => gT(ix + 1)}>
         &rarr;
       </button>
 
       <div className="tdots" aria-label="Testimonial pagination">
-        {TESTIMONIALS.map((_, i) => (
+        {TS.map((_, i) => (
           <button
             key={i}
             type="button"
-            className={`tdot${i === index ? ' active' : ''}`}
+            className={`tdot${i === ix ? ' active' : ''}`}
             aria-label={`Show testimonial ${i + 1}`}
-            onClick={() => goTo(i)}
+            onClick={() => gT(i)}
           />
         ))}
       </div>
-    </Reveal>
+    </Rv>
   )
 }

@@ -1,39 +1,38 @@
 import { useEffect, useRef, useState } from 'react'
 
-/** Counts 0 → target once the element scrolls into view. */
-export default function useCountUp(target, duration = 1600) {
-  const ref = useRef(null)
-  const [value, setValue] = useState(0)
-  const started = useRef(false)
+export default function uc(tg, du = 1600) {
+  const rf = useRef(null)
+  const [v, setV] = useState(0)
+  const sd = useRef(false)
 
   useEffect(() => {
-    const el = ref.current
+    const el = rf.current
     if (!el) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setValue(target)
+      setV(tg)
       return
     }
     const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (!e.isIntersecting || started.current) return
-          started.current = true
+      (es) => {
+        es.forEach((e) => {
+          if (!e.isIntersecting || sd.current) return
+          sd.current = true
           io.unobserve(el)
           const t0 = performance.now()
-          const tick = (now) => {
-            const p = Math.min((now - t0) / duration, 1)
-            const eased = 1 - Math.pow(1 - p, 3)
-            setValue(Math.round(target * eased))
-            if (p < 1) requestAnimationFrame(tick)
+          const tk = (nw) => {
+            const p = Math.min((nw - t0) / du, 1)
+            const ed = 1 - Math.pow(1 - p, 3)
+            setV(Math.round(tg * ed))
+            if (p < 1) requestAnimationFrame(tk)
           }
-          requestAnimationFrame(tick)
+          requestAnimationFrame(tk)
         })
       },
       { threshold: 0.4 },
     )
     io.observe(el)
     return () => io.disconnect()
-  }, [target, duration])
+  }, [tg, du])
 
-  return [ref, value]
+  return [rf, v]
 }

@@ -2,16 +2,14 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import logo from '../../asset/logo/517_logo_1.svg'
 
-/* The site is one page: every menu entry is an anchor into it. The /work page is
-   reached only through the "View more" button in the Work teaser. */
-const LINKS = [
+const LK = [
   { hash: '#home', label: 'Home' },
   { hash: '#work', label: 'Work' },
   { hash: '#about', label: 'About' },
   { hash: '#contact', label: 'Contact' },
 ]
 
-function Brand({ onClick }) {
+function Bd({ onClick }) {
   return (
     <Link to="/" className="brand" onClick={onClick}>
       <img className="logo-img" src={logo} alt="517 EXHIBITS" />
@@ -19,48 +17,46 @@ function Brand({ onClick }) {
   )
 }
 
-export default function Nav() {
+export default function Nv() {
   const { pathname, hash } = useLocation()
-  const [scrolled, setScrolled] = useState(false)
-  const [open, setOpen] = useState(false)
+  const [sc, setSc] = useState(false)
+  const [op, setOp] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const oS = () => setSc(window.scrollY > 60)
+    oS()
+    window.addEventListener('scroll', oS, { passive: true })
+    return () => window.removeEventListener('scroll', oS)
   }, [])
 
-  // lock body scroll while the mobile menu is open
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
+    document.body.style.overflow = op ? 'hidden' : ''
     return () => {
       document.body.style.overflow = ''
     }
-  }, [open])
+  }, [op])
 
-  const close = () => setOpen(false)
-  // on the home page with no hash, the hero is what you are looking at
-  const isActive = (h) => pathname === '/' && (hash === h || (!hash && h === '#home'))
+  const cl = () => setOp(false)
+  const iA = (h) => pathname === '/' && (hash === h || (!hash && h === '#home'))
 
   return (
     <>
-      <header className={`nav${scrolled ? ' scrolled' : ''}`}>
+      <header className={`nav${sc ? ' scrolled' : ''}`}>
         <div className="wrap">
-          <Brand />
+          <Bd />
           <div className="nav-right">
             <nav className="navlinks">
-              {LINKS.map((l) => (
+              {LK.map((l) => (
                 <Link
                   key={l.hash}
                   to={`/${l.hash}`}
-                  className={isActive(l.hash) ? 'active' : undefined}
+                  className={iA(l.hash) ? 'active' : undefined}
                 >
                   {l.label}
                 </Link>
               ))}
             </nav>
-            <button className="burger" aria-label="Open menu" onClick={() => setOpen(true)}>
+            <button className="burger" aria-label="Open menu" onClick={() => setOp(true)}>
               <span />
               <span />
               <span />
@@ -69,21 +65,21 @@ export default function Nav() {
         </div>
       </header>
 
-      <div className={`mobile-menu${open ? ' open' : ''}`}>
+      <div className={`mobile-menu${op ? ' open' : ''}`}>
         <div className="mm-head">
-          <Brand onClick={close} />
-          <button className="mm-close" aria-label="Close menu" onClick={close}>
+          <Bd onClick={cl} />
+          <button className="mm-close" aria-label="Close menu" onClick={cl}>
             &times;
           </button>
         </div>
         <nav>
-          {LINKS.map((l) => (
-            <Link key={l.hash} to={`/${l.hash}`} onClick={close}>
+          {LK.map((l) => (
+            <Link key={l.hash} to={`/${l.hash}`} onClick={cl}>
               {l.label}
             </Link>
           ))}
         </nav>
-        <Link to="/#contact" className="btn lg" onClick={close}>
+        <Link to="/#contact" className="btn lg" onClick={cl}>
           Contact us
         </Link>
       </div>

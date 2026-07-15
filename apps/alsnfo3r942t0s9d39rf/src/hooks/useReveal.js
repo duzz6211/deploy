@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react'
 
 let io = null
-function getObserver() {
+function gO() {
   if (!io) {
     io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
+      (es) => {
+        es.forEach((e) => {
           if (e.isIntersecting) {
             e.target.classList.add('in')
             io.unobserve(e.target)
@@ -18,14 +18,13 @@ function getObserver() {
   return io
 }
 
-/** Adds the shared scroll-reveal IntersectionObserver to the returned ref. */
-export default function useReveal() {
-  const ref = useRef(null)
+export default function ur() {
+  const rf = useRef(null)
   useEffect(() => {
-    const el = ref.current
+    const el = rf.current
     if (!el) return
-    getObserver().observe(el)
+    gO().observe(el)
     return () => io && io.unobserve(el)
   }, [])
-  return ref
+  return rf
 }

@@ -1,37 +1,34 @@
-import Reveal from './Reveal'
-import SectionTitle from './SectionTitle'
+import Rv from './Reveal'
+import St from './SectionTitle'
 import craft from '../../asset/img/about_1.webp'
 import team from '../../asset/img/about_2.webp'
-import { VALUES } from '../data/content'
+import { VL } from '../data/content'
 
-/** "About" block of the one-page home: story, approach, values. */
-export default function AboutSection() {
+export default function As() {
   return (
     <div>
-      <SectionTitle id="about">Our story</SectionTitle>
+      <St id="about">Our story</St>
 
-      {/* Story */}
       <section className="band pad-96">
         <div className="wrap">
           <div className="split">
-            <Reveal className="split-copy">
+            <Rv className="split-copy">
               <h2>Built on craft, obsessed with detail.</h2>
-            </Reveal>
-            <Reveal delay={1} className="split-media">
+            </Rv>
+            <Rv delay={1} className="split-media">
               <img src={craft} alt="517 EXHIBITS team crafting an exhibition environment" />
-            </Reveal>
+            </Rv>
           </div>
         </div>
       </section>
 
-      {/* Approach — image left, copy right */}
       <section className="band pad-96 alt">
         <div className="wrap">
           <div className="split">
-            <Reveal className="split-media square">
+            <Rv className="split-media square">
               <img src={team} alt="517 EXHIBITS designers and fabricators at work" />
-            </Reveal>
-            <Reveal delay={1} className="split-copy">
+            </Rv>
+            <Rv delay={1} className="split-copy">
               <p>
                 At 517 EXHIBITS, we bring a global perspective and meticulous execution to every
                 project — supporting brands from concept to completion. We believe every space
@@ -42,15 +39,14 @@ export default function AboutSection() {
                 Our multidisciplinary team of designers, fabricators and producers works as one, so
                 your exhibition is delivered on brief, on budget, and on the day it matters most.
               </p>
-            </Reveal>
+            </Rv>
           </div>
         </div>
       </section>
 
-      {/* Values */}
       <section className="band pad-96">
         <div className="wrap">
-          <Reveal className="sec-head-c">
+          <Rv className="sec-head-c">
             <div className="title-line" />
             <p className="eyebrow">What drives us</p>
             <h2>The principles behind every build.</h2>
@@ -58,18 +54,18 @@ export default function AboutSection() {
               Three values that shape how we design, fabricate and deliver — on every floor, in
               every city.
             </p>
-          </Reveal>
+          </Rv>
           <div className="cards">
-            {VALUES.map((v, i) => (
-              <Reveal key={v.title} delay={i} className="card">
+            {VL.map((x, i) => (
+              <Rv key={x.title} delay={i} className="card">
                 <div className="ico">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    {v.icon}
+                    {x.icon}
                   </svg>
                 </div>
-                <h3>{v.title}</h3>
-                <p>{v.desc}</p>
-              </Reveal>
+                <h3>{x.title}</h3>
+                <p>{x.desc}</p>
+              </Rv>
             ))}
           </div>
         </div>

@@ -1,10 +1,9 @@
-import useCountUp from '../hooks/useCountUp'
+import uc from '../hooks/useCountUp'
 
-/** Animated count-up stat (e.g. 450+, 15yr). */
-export default function StatCounter({ value, suffix = '', label }) {
-  const [ref, n] = useCountUp(value)
+export default function Sc({ value, suffix = '', label }) {
+  const [rf, n] = uc(value)
   return (
-    <div ref={ref} className="stat">
+    <div ref={rf} className="stat">
       <div className="n">
         {n}
         {suffix && <em>{suffix}</em>}

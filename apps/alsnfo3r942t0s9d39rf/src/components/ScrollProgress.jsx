@@ -1,29 +1,28 @@
 import { useEffect, useRef } from 'react'
 
-/** Thin progress bar at the top of the viewport tracking scroll position. */
-export default function ScrollProgress() {
-  const ref = useRef(null)
+export default function Sp() {
+  const rf = useRef(null)
   useEffect(() => {
-    let raf = 0
-    const update = () => {
-      const el = ref.current
+    let ra = 0
+    const up = () => {
+      const el = rf.current
       if (!el) return
-      const max = document.documentElement.scrollHeight - window.innerHeight
-      const p = max > 0 ? window.scrollY / max : 0
+      const mx = document.documentElement.scrollHeight - window.innerHeight
+      const p = mx > 0 ? window.scrollY / mx : 0
       el.style.transform = `scaleX(${p.toFixed(4)})`
     }
-    const onScroll = () => {
-      cancelAnimationFrame(raf)
-      raf = requestAnimationFrame(update)
+    const oS = () => {
+      cancelAnimationFrame(ra)
+      ra = requestAnimationFrame(up)
     }
-    update()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
+    up()
+    window.addEventListener('scroll', oS, { passive: true })
+    window.addEventListener('resize', oS)
     return () => {
-      cancelAnimationFrame(raf)
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      cancelAnimationFrame(ra)
+      window.removeEventListener('scroll', oS)
+      window.removeEventListener('resize', oS)
     }
   }, [])
-  return <div ref={ref} className="scroll-progress" aria-hidden="true" />
+  return <div ref={rf} className="scroll-progress" aria-hidden="true" />
 }

@@ -1,6 +1,6 @@
-const WIX = 'https://static.wixstatic.com/media'
+const WX = 'https://static.wixstatic.com/media'
 
-export const COMPANY = {
+export const CO = {
   office: {
     address: '1901 Losee Road #110, Las Vegas, NV 89030',
     language: 'Language: English / Korean',
@@ -11,43 +11,40 @@ export const COMPANY = {
   websiteLabel: 'www.temp.com',
 }
 
-export const IMG = {
-  // real hero background from main.html — home hero + work page hero
-  hero: `${WIX}/fd1380_7869533a15e84cfd9e03fabc8e01de22f000.jpg/v1/fit/w_1920,h_1080,q_90,enc_avif,quality_auto/hero.jpg`,
+export const IM = {
+  hero: `${WX}/fd1380_7869533a15e84cfd9e03fabc8e01de22f000.jpg/v1/fit/w_1920,h_1080,q_90,enc_avif,quality_auto/hero.jpg`,
 }
 
-/* Full 12-photo Featured Projects gallery from main.html (order: wides at grid wide slots). */
-const wide = (id, ext = 'jpg') =>
-  `${WIX}/${id}/v1/fit/w_1400,h_960,q_90,enc_avif,quality_auto/p.${ext}`
-const tall = (id, ext = 'jpg') =>
-  `${WIX}/${id}/v1/fit/w_900,h_1125,q_90,enc_avif,quality_auto/p.${ext}`
+const wd = (id, ext = 'jpg') =>
+  `${WX}/${id}/v1/fit/w_1400,h_960,q_90,enc_avif,quality_auto/p.${ext}`
+const tl = (id, ext = 'jpg') =>
+  `${WX}/${id}/v1/fit/w_900,h_1125,q_90,enc_avif,quality_auto/p.${ext}`
 
-const GALLERY = [
-  wide('8bb438_dbc34d8b0df546e3b720b14ff670ba83~mv2.jpg'),
-  tall('8bb438_f2d393d3ad61468890a2616c56fff0f5~mv2.jpg'),
-  tall('8bb438_e83d8cc28a044555b7672018983789a7~mv2.jpg'),
-  wide('8bb438_f6bbdd3a41df4bcab09c7333855ba583f003.jpg'),
-  tall('8bb438_189ac9d807b640ffbeca24c41d965bae~mv2.jpg'),
-  tall('8bb438_02133a81229f49e09dc4c20f107f1eb6~mv2.jpg'),
-  tall('8bb438_f7a5e921e855433896901546de91b43e~mv2.png', 'png'),
-  wide('8bb438_927f3e749a784536afbcdd81890e8064f003.jpg'),
-  tall('8bb438_31254b5ad37446c8949144e34adc2113~mv2.jpg'),
-  tall('8bb438_c9e1a83e7f7b43799dbe5a8d3fd81f0b~mv2.jpg'),
-  tall('8bb438_324d1f8b463e45d891b5de00c83989ad~mv2.jpg'),
-  tall('8bb438_22ae62c08916403d955425d5e8c70a11~mv2.jpg'),
+const GL = [
+  wd('8bb438_dbc34d8b0df546e3b720b14ff670ba83~mv2.jpg'),
+  tl('8bb438_f2d393d3ad61468890a2616c56fff0f5~mv2.jpg'),
+  tl('8bb438_e83d8cc28a044555b7672018983789a7~mv2.jpg'),
+  wd('8bb438_f6bbdd3a41df4bcab09c7333855ba583f003.jpg'),
+  tl('8bb438_189ac9d807b640ffbeca24c41d965bae~mv2.jpg'),
+  tl('8bb438_02133a81229f49e09dc4c20f107f1eb6~mv2.jpg'),
+  tl('8bb438_f7a5e921e855433896901546de91b43e~mv2.png', 'png'),
+  wd('8bb438_927f3e749a784536afbcdd81890e8064f003.jpg'),
+  tl('8bb438_31254b5ad37446c8949144e34adc2113~mv2.jpg'),
+  tl('8bb438_c9e1a83e7f7b43799dbe5a8d3fd81f0b~mv2.jpg'),
+  tl('8bb438_324d1f8b463e45d891b5de00c83989ad~mv2.jpg'),
+  tl('8bb438_22ae62c08916403d955425d5e8c70a11~mv2.jpg'),
 ]
 
-export const FILTERS = ['All', 'Trade Show', 'Brand Environment', 'Live Event', 'Custom Booth']
+export const FL = ['All', 'Trade Show', 'Brand Environment', 'Live Event', 'Custom Booth']
 
-// 프로젝트 이름/카테고리는 아직 미정 — 초안 placeholder
-export const PROJECTS = GALLERY.map((img, i) => ({
+export const PJ = GL.map((img, i) => ({
   title: `프로젝트 이름 ${String(i + 1).padStart(2, '0')}`,
-  cat: FILTERS[(i % 4) + 1],
-  filter: FILTERS[(i % 4) + 1],
+  cat: FL[(i % 4) + 1],
+  filter: FL[(i % 4) + 1],
   img,
 }))
 
-export const TESTIMONIALS = [
+export const TS = [
   {
     quote:
       '“The communication throughout was flawless. 517 understood our brand instantly and delivered a booth that stopped people in their tracks.”',
@@ -74,14 +71,14 @@ export const TESTIMONIALS = [
   },
 ]
 
-export const STATS = [
+export const STA = [
   { value: 450, suffix: '+', label: 'Projects delivered' },
   { value: 32, suffix: '', label: 'Countries reached' },
   { value: 18, suffix: '', label: 'Industry awards' },
   { value: 15, suffix: 'yr', label: 'Of experience' },
 ]
 
-export const CLIENTS = [
+export const CL = [
   { cls: 'samsung', node: 'SAMSUNG' },
   {
     cls: 'redken',
@@ -95,7 +92,7 @@ export const CLIENTS = [
   { cls: 'airbus', node: 'AIRBUS' },
 ]
 
-export const VALUES = [
+export const VL = [
   {
     title: 'Craftsmanship',
     desc: 'We sweat the millimeter. Every joint, finish and light is considered so the final stand feels effortless.',

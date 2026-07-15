@@ -1,80 +1,66 @@
-/** Animated scrolling shared by the nav links and the hero wheel-snap. */
+const DUR = 900
 
-const DURATION = 900
+const ez = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2)
 
-/** eases in from rest, then lands soft instead of slamming into the target */
-const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2)
+export const prm = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-export const prefersReducedMotion = () =>
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-/** Layout offset of `el` from the document top — immune to the .reveal transform. */
-function docTop(el) {
+function dT(el) {
   let y = 0
   for (let n = el; n; n = n.offsetParent) y += n.offsetTop
   return y
 }
 
-/** Height of the fixed header — the same value the anchors use as scroll-margin-top. */
-function navHeight() {
-  const root = document.documentElement
-  return parseFloat(getComputedStyle(root).getPropertyValue('--nav-h')) || 0
+function nH() {
+  const r = document.documentElement
+  return parseFloat(getComputedStyle(r).getPropertyValue('--nav-h')) || 0
 }
 
-/** Where the page must sit for section `id` to clear the fixed header. null if absent. */
-export function sectionTop(id) {
+export function stp(id) {
   const el = document.getElementById(id)
-  return el ? docTop(el) - navHeight() : null
+  return el ? dT(el) - nH() : null
 }
 
-let active = null
+let av = null
 
-/** anything the user does to scroll for themselves aborts the flight mid-air */
-const INTERRUPTS = ['wheel', 'touchstart', 'keydown']
+const INT = ['wheel', 'touchstart', 'keydown']
 
-/**
- * Fly the window to `to` over `duration` ms, superseding any flight already running.
- * Returns a cancel function; `onDone` fires only on a landing, never on a cancel.
- */
-export function animateScrollTo(to, { duration = DURATION, onDone } = {}) {
-  const root = document.documentElement
-  if (active) active()
+export function ast(to, { duration = DUR, onDone } = {}) {
+  const r = document.documentElement
+  if (av) av()
 
-  const max = Math.max(0, root.scrollHeight - window.innerHeight)
-  const from = window.scrollY
-  const dist = Math.min(Math.max(to, 0), max) - from
+  const mx = Math.max(0, r.scrollHeight - window.innerHeight)
+  const fr = window.scrollY
+  const ds = Math.min(Math.max(to, 0), mx) - fr
 
-  // already there: settle the caller now rather than pinning the page for a full duration
-  if (Math.abs(dist) < 1) {
+  if (Math.abs(ds) < 1) {
     onDone?.()
     return () => {}
   }
 
-  let raf = 0
-  let start = 0
-  const stop = () => {
-    cancelAnimationFrame(raf)
-    root.style.scrollBehavior = ''
-    for (const type of INTERRUPTS) window.removeEventListener(type, stop)
-    active = null
+  let rf = 0
+  let sr = 0
+  const sp = () => {
+    cancelAnimationFrame(rf)
+    r.style.scrollBehavior = ''
+    for (const ty of INT) window.removeEventListener(ty, sp)
+    av = null
   }
 
-  // the global `scroll-behavior:smooth` would fight the per-frame scrollTo below
-  root.style.scrollBehavior = 'auto'
-  active = stop
-  for (const type of INTERRUPTS) window.addEventListener(type, stop, { passive: true })
+  r.style.scrollBehavior = 'auto'
+  av = sp
+  for (const ty of INT) window.addEventListener(ty, sp, { passive: true })
 
-  const step = (now) => {
-    if (!start) start = now
-    const t = Math.min((now - start) / duration, 1)
-    window.scrollTo(0, from + dist * ease(t))
+  const st = (nw) => {
+    if (!sr) sr = nw
+    const t = Math.min((nw - sr) / duration, 1)
+    window.scrollTo(0, fr + ds * ez(t))
     if (t < 1) {
-      raf = requestAnimationFrame(step)
+      rf = requestAnimationFrame(st)
       return
     }
-    stop()
+    sp()
     onDone?.()
   }
-  raf = requestAnimationFrame(step)
-  return stop
+  rf = requestAnimationFrame(st)
+  return sp
 }

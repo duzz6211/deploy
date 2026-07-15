@@ -1,48 +1,46 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
-import Nav from './Nav'
+import Nv from './Nav'
 
-const renderNav = () =>
+const rN = () =>
   render(
     <MemoryRouter>
-      <Nav />
+      <Nv />
     </MemoryRouter>
   )
 
 describe('Nav', () => {
   it('shows the brand and the main navigation links in the header', () => {
-    renderNav()
+    rN()
 
-    // The brand + links also appear in the mobile menu, so scope to the header
-    // (<header> has an implicit "banner" role) to query a single instance.
-    const header = screen.getByRole('banner')
+    const hd = screen.getByRole('banner')
 
-    expect(within(header).getByAltText('517 EXHIBITS')).toHaveAttribute(
+    expect(within(hd).getByAltText('517 EXHIBITS')).toHaveAttribute(
       'src',
       expect.stringContaining('517_logo_1.svg')
     )
-    for (const label of ['Home', 'Work', 'About', 'Contact']) {
-      expect(within(header).getByRole('link', { name: label })).toBeInTheDocument()
+    for (const lb of ['Home', 'Work', 'About', 'Contact']) {
+      expect(within(hd).getByRole('link', { name: lb })).toBeInTheDocument()
     }
   })
 
   it('links the menu to the one-page sections, and Work only via the page anchor', () => {
-    renderNav()
-    const header = screen.getByRole('banner')
+    rN()
+    const hd = screen.getByRole('banner')
 
-    for (const [label, href] of [
+    for (const [lb, hf] of [
       ['Home', '/#home'],
       ['Work', '/#work'],
       ['About', '/#about'],
       ['Contact', '/#contact'],
     ]) {
-      expect(within(header).getByRole('link', { name: label })).toHaveAttribute('href', href)
+      expect(within(hd).getByRole('link', { name: lb })).toHaveAttribute('href', hf)
     }
   })
 
   it('locks body scroll when the mobile menu opens', async () => {
-    renderNav()
+    rN()
 
     expect(document.body.style.overflow).toBe('')
     await userEvent.click(screen.getByRole('button', { name: /open menu/i }))

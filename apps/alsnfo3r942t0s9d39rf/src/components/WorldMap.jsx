@@ -1,10 +1,9 @@
-import useReveal from '../hooks/useReveal'
+import ur from '../hooks/useReveal'
 
-/** Dotted world map with animated route lines (draw on reveal) and pulsing nodes. */
-export default function WorldMap({ maskId = 'worldMask', patternId = 'dotPattern' }) {
-  const ref = useReveal()
+export default function Wm({ maskId = 'worldMask', patternId = 'dotPattern' }) {
+  const rf = ur()
   return (
-    <div ref={ref} className="map-wrap reveal" aria-hidden="true">
+    <div ref={rf} className="map-wrap reveal" aria-hidden="true">
       <svg viewBox="0 0 920 640" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id={patternId} width="18" height="18" patternUnits="userSpaceOnUse">

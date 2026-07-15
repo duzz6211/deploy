@@ -1,10 +1,9 @@
-import Reveal from './Reveal'
+import Rv from './Reveal'
 
-/** Full-bleed black title band that opens each section of the home page. */
-export default function SectionTitle({ id, children }) {
+export default function St({ id, children }) {
   return (
-    <Reveal as="h2" id={id} className="sec-title">
+    <Rv as="h2" id={id} className="sec-title">
       {children}
-    </Reveal>
+    </Rv>
   )
 }

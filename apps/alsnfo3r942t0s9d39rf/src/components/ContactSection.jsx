@@ -1,66 +1,64 @@
 import { useState } from 'react'
-import Reveal from './Reveal'
-import SectionTitle from './SectionTitle'
-import { COMPANY } from '../data/content'
+import Rv from './Reveal'
+import St from './SectionTitle'
+import { CO } from '../data/content'
 
-const INITIAL = { name: '', email: '', show: '', booth: '', req: '' }
+const IN = { name: '', email: '', show: '', booth: '', req: '' }
 
-/** "Contact" block of the one-page home: company details + enquiry form. */
-export default function ContactSection() {
-  const [form, setForm] = useState(INITIAL)
-  const [errors, setErrors] = useState({})
-  const [status, setStatus] = useState('idle') // idle | sending | sent
+export default function Cs() {
+  const [fm, setFm] = useState(IN)
+  const [er, setEr] = useState({})
+  const [su, setSu] = useState('idle')
 
-  const set = (k) => (e) => {
-    setForm({ ...form, [k]: e.target.value })
-    if (errors[k]) setErrors({ ...errors, [k]: undefined })
+  const s2 = (k) => (e) => {
+    setFm({ ...fm, [k]: e.target.value })
+    if (er[k]) setEr({ ...er, [k]: undefined })
   }
 
-  const validate = () => {
-    const errs = {}
-    if (!form.name.trim()) errs.name = 'Please enter your name.'
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = 'Please enter a valid email.'
-    return errs
+  const vd = () => {
+    const es = {}
+    if (!fm.name.trim()) es.name = 'Please enter your name.'
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fm.email)) es.email = 'Please enter a valid email.'
+    return es
   }
 
-  const onSubmit = (e) => {
+  const oSub = (e) => {
     e.preventDefault()
-    const errs = validate()
-    setErrors(errs)
-    if (Object.keys(errs).length) return
-    setStatus('sending')
-    // 실제 전송 API가 준비되면 여기서 fetch로 교체
+    const es = vd()
+    setEr(es)
+    if (Object.keys(es).length) return
+    setSu('sending')
     setTimeout(() => {
-      setStatus('sent')
-      setForm(INITIAL)
+      setSu('sent')
+      setFm(IN)
     }, 900)
   }
 
   return (
     <>
-      <SectionTitle id="contact">Contact</SectionTitle>
+      <St id="contact">Contact</St>
       <section className="band pad-96 alt">
         <div className="wrap">
           <div className="contact-grid">
-            <Reveal className="contact-copy">
+            <Rv className="contact-copy">
               <h2>Tell us about yourself.</h2>
               <p>
                 Share a few details about your project and our team will be in touch to talk through
                 how we can help.
               </p>
               <div className="contact-info">
-                <a href={COMPANY.office.telHref}>
+                <a href={CO.office.telHref}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" />
                   </svg>
-                  Tel {COMPANY.office.tel}
+                  Tel {CO.office.tel}
                 </a>
-                <a href={COMPANY.website} target="_blank" rel="noreferrer">
+                <a href={CO.website} target="_blank" rel="noreferrer">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <circle cx="12" cy="12" r="9" />
                     <path d="M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18M3 12h18" />
                   </svg>
-                  {COMPANY.websiteLabel}
+                  {CO.websiteLabel}
                 </a>
                 <div>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -68,38 +66,38 @@ export default function ContactSection() {
                     <circle cx="12" cy="10" r="3" />
                   </svg>
                   <span>
-                    {COMPANY.office.address}
+                    {CO.office.address}
                     <br />
-                    {COMPANY.office.language}
+                    {CO.office.language}
                   </span>
                 </div>
               </div>
-            </Reveal>
+            </Rv>
 
-            <Reveal as="form" delay={1} onSubmit={onSubmit} noValidate>
-              <div className={`field${errors.name ? ' has-error' : ''}`}>
+            <Rv as="form" delay={1} onSubmit={oSub} noValidate>
+              <div className={`field${er.name ? ' has-error' : ''}`}>
                 <label htmlFor="name">Name</label>
                 <input
                   id="name"
                   type="text"
                   placeholder="Your name"
-                  value={form.name}
-                  onChange={set('name')}
+                  value={fm.name}
+                  onChange={s2('name')}
                   required
                 />
-                {errors.name && <span className="err">{errors.name}</span>}
+                {er.name && <span className="err">{er.name}</span>}
               </div>
-              <div className={`field${errors.email ? ' has-error' : ''}`}>
+              <div className={`field${er.email ? ' has-error' : ''}`}>
                 <label htmlFor="email">Email</label>
                 <input
                   id="email"
                   type="email"
                   placeholder="you@company.com"
-                  value={form.email}
-                  onChange={set('email')}
+                  value={fm.email}
+                  onChange={s2('email')}
                   required
                 />
-                {errors.email && <span className="err">{errors.email}</span>}
+                {er.email && <span className="err">{er.email}</span>}
               </div>
               <div className="field">
                 <label htmlFor="show">Show name</label>
@@ -107,8 +105,8 @@ export default function ContactSection() {
                   id="show"
                   type="text"
                   placeholder="e.g. CES 2026"
-                  value={form.show}
-                  onChange={set('show')}
+                  value={fm.show}
+                  onChange={s2('show')}
                 />
               </div>
               <div className="field">
@@ -117,8 +115,8 @@ export default function ContactSection() {
                   id="booth"
                   type="text"
                   placeholder="e.g. 20 x 20 ft"
-                  value={form.booth}
-                  onChange={set('booth')}
+                  value={fm.booth}
+                  onChange={s2('booth')}
                 />
               </div>
               <div className="field full">
@@ -126,26 +124,26 @@ export default function ContactSection() {
                 <textarea
                   id="req"
                   placeholder="Tell us about your goals, timeline and any must-haves…"
-                  value={form.req}
-                  onChange={set('req')}
+                  value={fm.req}
+                  onChange={s2('req')}
                 />
               </div>
               <div className="field full">
                 <button
                   type="submit"
-                  className={`btn lg${status === 'sending' ? ' is-sending' : ''}`}
+                  className={`btn lg${su === 'sending' ? ' is-sending' : ''}`}
                   style={{ width: '100%' }}
-                  disabled={status === 'sending'}
+                  disabled={su === 'sending'}
                 >
-                  {status === 'sending' ? 'Sending…' : 'Send Message'}
+                  {su === 'sending' ? 'Sending…' : 'Send Message'}
                 </button>
               </div>
-              {status === 'sent' && (
+              {su === 'sent' && (
                 <p className="form-status" role="status">
                   Message sent ✓ — we'll be in touch shortly.
                 </p>
               )}
-            </Reveal>
+            </Rv>
           </div>
         </div>
       </section>
