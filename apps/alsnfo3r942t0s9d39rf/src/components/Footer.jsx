@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { LOGO, COMPANY } from '../data/content'
+import logo from '../../asset/logo/517_logo_2.svg'
+import { COMPANY } from '../data/content'
 
 const SOCIALS = [
   {
@@ -41,31 +42,21 @@ export default function Footer() {
         <div className="foot-top">
           <div className="foot-brand">
             <div className="brand">
-              <img className="logo-img" src={LOGO} alt="517 EXHIBITS" />
+              <img className="logo-img" src={logo} alt="517 EXHIBITS" />
             </div>
-            <p>
-              Design &amp; Motion Studio turning creative vision into immersive exhibition experiences — from concept
-              to completion.
-            </p>
           </div>
           <div className="foot-col">
             <h4>Explore</h4>
             <Link to="/work">Work</Link>
-            <Link to="/services">Services</Link>
-            <Link to="/about">About</Link>
-            <Link to="/contact">Contact</Link>
+            <Link to="/#about">About</Link>
+            <Link to="/#contact">Contact</Link>
           </div>
           <div className="foot-col">
-            <h4>{COMPANY.koreaHq.label}</h4>
-            <address>{COMPANY.koreaHq.address}</address>
-            <a href={COMPANY.koreaHq.telHref}>Tel {COMPANY.koreaHq.tel}</a>
+            <address>{COMPANY.office.address}</address>
+            <a href={COMPANY.office.telHref}>Tel {COMPANY.office.tel}</a>
             <a href={COMPANY.website} target="_blank" rel="noreferrer">
               {COMPANY.websiteLabel}
             </a>
-          </div>
-          <div className="foot-col">
-            <h4>{COMPANY.usa.label}</h4>
-            <address>{COMPANY.usa.address}</address>
           </div>
         </div>
         <div className="foot-bottom">

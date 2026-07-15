@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import PageHero from '../components/PageHero'
-import Reveal from '../components/Reveal'
-import { IMG, COMPANY } from '../data/content'
+import Reveal from './Reveal'
+import SectionTitle from './SectionTitle'
+import { COMPANY } from '../data/content'
 
-const INITIAL = { name: '', email: '', phone: '', show: '', booth: '', budget: '', req: '', hear: '' }
+const INITIAL = { name: '', email: '', show: '', booth: '', req: '' }
 
-export default function Contact() {
+/** "Contact" block of the one-page home: company details + enquiry form. */
+export default function ContactSection() {
   const [form, setForm] = useState(INITIAL)
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle') // idle | sending | sent
@@ -37,31 +38,22 @@ export default function Contact() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Get in touch"
-        title={
-          <>
-            Let's build something <em>unforgettable</em>.
-          </>
-        }
-        lede="Tell us about your next exhibition, trade show display or brand experience — our team will be in touch to talk through how we can help."
-        crumb="Contact"
-        image={IMG.hero}
-      />
-
-      <section className="band pad-96" id="contact">
+      <SectionTitle id="contact">Contact</SectionTitle>
+      <section className="band pad-96 alt">
         <div className="wrap">
           <div className="contact-grid">
             <Reveal className="contact-copy">
-              <p className="eyebrow">Contact</p>
               <h2>Tell us about yourself.</h2>
-              <p>Share a few details about your project and our team will be in touch to talk through how we can help.</p>
+              <p>
+                Share a few details about your project and our team will be in touch to talk through
+                how we can help.
+              </p>
               <div className="contact-info">
-                <a href={COMPANY.koreaHq.telHref}>
+                <a href={COMPANY.office.telHref}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" />
                   </svg>
-                  Tel {COMPANY.koreaHq.tel}
+                  Tel {COMPANY.office.tel}
                 </a>
                 <a href={COMPANY.website} target="_blank" rel="noreferrer">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -76,34 +68,10 @@ export default function Contact() {
                     <circle cx="12" cy="10" r="3" />
                   </svg>
                   <span>
-                    <strong>{COMPANY.koreaHq.label}</strong>
+                    {COMPANY.office.address}
                     <br />
-                    {COMPANY.koreaHq.address}
+                    {COMPANY.office.language}
                   </span>
-                </div>
-                <div>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                  <span>
-                    <strong>{COMPANY.usa.label}</strong>
-                    <br />
-                    {COMPANY.usa.address}
-                  </span>
-                </div>
-              </div>
-
-              <div className="hours">
-                <h4>Office hours</h4>
-                <div className="row">
-                  Monday – Friday <span>9:00 – 18:00</span>
-                </div>
-                <div className="row">
-                  Saturday <span>By appointment</span>
-                </div>
-                <div className="row">
-                  Sunday <span>Closed</span>
                 </div>
               </div>
             </Reveal>
@@ -111,35 +79,47 @@ export default function Contact() {
             <Reveal as="form" delay={1} onSubmit={onSubmit} noValidate>
               <div className={`field${errors.name ? ' has-error' : ''}`}>
                 <label htmlFor="name">Name</label>
-                <input id="name" type="text" placeholder="Your name" value={form.name} onChange={set('name')} required />
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="Your name"
+                  value={form.name}
+                  onChange={set('name')}
+                  required
+                />
                 {errors.name && <span className="err">{errors.name}</span>}
               </div>
               <div className={`field${errors.email ? ' has-error' : ''}`}>
                 <label htmlFor="email">Email</label>
-                <input id="email" type="email" placeholder="you@company.com" value={form.email} onChange={set('email')} required />
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="you@company.com"
+                  value={form.email}
+                  onChange={set('email')}
+                  required
+                />
                 {errors.email && <span className="err">{errors.email}</span>}
               </div>
               <div className="field">
-                <label htmlFor="phone">Phone</label>
-                <input id="phone" type="tel" placeholder="Phone number" value={form.phone} onChange={set('phone')} />
-              </div>
-              <div className="field">
                 <label htmlFor="show">Show name</label>
-                <input id="show" type="text" placeholder="e.g. CES 2026" value={form.show} onChange={set('show')} />
+                <input
+                  id="show"
+                  type="text"
+                  placeholder="e.g. CES 2026"
+                  value={form.show}
+                  onChange={set('show')}
+                />
               </div>
               <div className="field">
                 <label htmlFor="booth">Booth dimensions</label>
-                <input id="booth" type="text" placeholder="e.g. 20 x 20 ft" value={form.booth} onChange={set('booth')} />
-              </div>
-              <div className="field">
-                <label htmlFor="budget">Budget</label>
-                <select id="budget" value={form.budget} onChange={set('budget')}>
-                  <option value="">Select a range</option>
-                  <option>Under $50k</option>
-                  <option>$50k – $100k</option>
-                  <option>$100k – $250k</option>
-                  <option>$250k+</option>
-                </select>
+                <input
+                  id="booth"
+                  type="text"
+                  placeholder="e.g. 20 x 20 ft"
+                  value={form.booth}
+                  onChange={set('booth')}
+                />
               </div>
               <div className="field full">
                 <label htmlFor="req">Specific booth requirements</label>
@@ -149,10 +129,6 @@ export default function Contact() {
                   value={form.req}
                   onChange={set('req')}
                 />
-              </div>
-              <div className="field full">
-                <label htmlFor="hear">How did you hear about us?</label>
-                <input id="hear" type="text" placeholder="Referral, search, social…" value={form.hear} onChange={set('hear')} />
               </div>
               <div className="field full">
                 <button

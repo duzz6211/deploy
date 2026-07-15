@@ -3,27 +3,34 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import ScrollProgress from './components/ScrollProgress'
-import CustomCursor from './components/CustomCursor'
 import Home from './pages/Home'
 import Work from './pages/Work'
-import Services from './pages/Services'
-import About from './pages/About'
-import Contact from './pages/Contact'
+import { animateScrollTo, prefersReducedMotion, sectionTop } from './lib/scroll'
 
-function ScrollToTop() {
-  const { pathname } = useLocation()
+/** Travel to the linked section (/#about) on navigation, otherwise jump to the top. */
+function ScrollManager() {
+  const { pathname, hash } = useLocation()
+
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [pathname])
+    const to = hash ? sectionTop(hash.slice(1)) : null
+    if (to === null) {
+      window.scrollTo(0, 0)
+      return
+    }
+    if (prefersReducedMotion()) {
+      window.scrollTo(0, to)
+      return
+    }
+    // scroll the distance rather than teleporting; cancelled if the user navigates again
+    return animateScrollTo(to)
+  }, [pathname, hash])
+
   return null
 }
 
 const TITLES = {
   '/': '517 EXHIBITS — High-impact brand experiences',
   '/work': 'Work — 517 EXHIBITS',
-  '/services': 'Services — 517 EXHIBITS',
-  '/about': 'About — 517 EXHIBITS',
-  '/contact': 'Contact — 517 EXHIBITS',
 }
 
 export default function App() {
@@ -35,18 +42,14 @@ export default function App() {
 
   return (
     <>
-      <ScrollToTop />
+      <ScrollManager />
       <ScrollProgress />
-      <CustomCursor />
       <Nav />
       {/* key re-mounts the page on route change → CSS page transition */}
       <main key={pathname} className="page-enter">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/work" element={<Work />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </main>

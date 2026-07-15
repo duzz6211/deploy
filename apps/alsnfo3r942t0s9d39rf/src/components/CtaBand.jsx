@@ -8,7 +8,7 @@ const ArrowIcon = () => (
 )
 
 /** Dark full-width CTA band shared across pages. */
-export default function CtaBand({ title, lede, label = 'Start a project', to = '/contact' }) {
+export default function CtaBand({ title, lede, label = 'Start a project', to = '/#contact' }) {
   return (
     <section className="cta">
       <div className="wrap">

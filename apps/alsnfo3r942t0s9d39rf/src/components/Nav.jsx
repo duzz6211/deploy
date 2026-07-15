@@ -1,23 +1,26 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { LOGO } from '../data/content'
+import { Link, useLocation } from 'react-router-dom'
+import logo from '../../asset/logo/517_logo_1.svg'
 
+/* The site is one page: every menu entry is an anchor into it. The /work page is
+   reached only through the "View more" button in the Work teaser. */
 const LINKS = [
-  { to: '/work', label: 'Work' },
-  { to: '/services', label: 'Services' },
-  { to: '/about', label: 'About' },
-  { to: '/contact', label: 'Contact' },
+  { hash: '#home', label: 'Home' },
+  { hash: '#work', label: 'Work' },
+  { hash: '#about', label: 'About' },
+  { hash: '#contact', label: 'Contact' },
 ]
 
 function Brand({ onClick }) {
   return (
     <Link to="/" className="brand" onClick={onClick}>
-      <img className="logo-img" src={LOGO} alt="517 EXHIBITS" />
+      <img className="logo-img" src={logo} alt="517 EXHIBITS" />
     </Link>
   )
 }
 
 export default function Nav() {
+  const { pathname, hash } = useLocation()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -37,6 +40,8 @@ export default function Nav() {
   }, [open])
 
   const close = () => setOpen(false)
+  // on the home page with no hash, the hero is what you are looking at
+  const isActive = (h) => pathname === '/' && (hash === h || (!hash && h === '#home'))
 
   return (
     <>
@@ -46,9 +51,13 @@ export default function Nav() {
           <div className="nav-right">
             <nav className="navlinks">
               {LINKS.map((l) => (
-                <NavLink key={l.to} to={l.to} className={({ isActive }) => (isActive ? 'active' : undefined)}>
+                <Link
+                  key={l.hash}
+                  to={`/${l.hash}`}
+                  className={isActive(l.hash) ? 'active' : undefined}
+                >
                   {l.label}
-                </NavLink>
+                </Link>
               ))}
             </nav>
             <button className="burger" aria-label="Open menu" onClick={() => setOpen(true)}>
@@ -69,12 +78,12 @@ export default function Nav() {
         </div>
         <nav>
           {LINKS.map((l) => (
-            <Link key={l.to} to={l.to} onClick={close}>
+            <Link key={l.hash} to={`/${l.hash}`} onClick={close}>
               {l.label}
             </Link>
           ))}
         </nav>
-        <Link to="/contact" className="btn lg" onClick={close}>
+        <Link to="/#contact" className="btn lg" onClick={close}>
           Contact us
         </Link>
       </div>
